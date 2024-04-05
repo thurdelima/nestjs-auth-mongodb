@@ -3,6 +3,7 @@ import { ProductController } from './product.controller';
 import { CreateProductUseCase } from './use-cases/create-product.usecase';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from './product.schema';
+import { ListProductUseCase } from './use-cases/list-product.usecase';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { Product, ProductSchema } from './product.schema';
     ]),
   ],
   controllers: [ProductController],
-  providers: [CreateProductUseCase],
+  providers: [CreateProductUseCase, ListProductUseCase],
 })
 export class ProductModule {}
