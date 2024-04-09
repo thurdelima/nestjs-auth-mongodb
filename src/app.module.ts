@@ -10,9 +10,12 @@ import { RolesGuard } from './infra/providers/roles-guard.provider';
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost/auth_nestjs'), UsersModule, AuthModule, ProductModule],
   controllers: [AppController],
-  providers: [{
-    provide: 'APP_GUARD',
-    useClass: RolesGuard
-  },AppService],
+  providers: [
+    // {
+    //   provide: 'APP_GUARD',
+    //   useClass: RolesGuard
+    // }
+    //, 
+    AppService],
 })
-export class AppModule {}
+export class AppModule { }
