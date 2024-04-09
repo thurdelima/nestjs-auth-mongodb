@@ -21,32 +21,38 @@ export class RolesGuard implements CanActivate {
         }
 
         const request = context.switchToHttp().getRequest();
-        const token = this.extractHeaderTokenFromHeader(request);
+        const { user } = request.user;
+        return requiredRoles.some((role) => user.roles.includes(role));
+        
+        
+        // const token = this.extractHeaderTokenFromHeader(request);
 
-        if (!token) throw new UnauthorizedException();
+        // if (!token) throw new UnauthorizedException();
 
-        try {
-            const payload = await this.jwtService.verifyAsync(token, {
-                secret: 'cc9132d2ea1b006271fc2bed432a9da4'
-            })
+        
+        
+        // try {
+        //     const payload = await this.jwtService.verifyAsync(token, {
+        //         secret: 'cc9132d2ea1b006271fc2bed432a9da4'
+        //     })
 
-            request['user'] = payload;
+        //     request['user'] = payload;
 
-            return requiredRoles.some((role) => payload.user.roles.includes(role));
+        //     return requiredRoles.some((role) => payload.user.roles.includes(role));
 
 
-        } catch (error) {
-            throw new UnauthorizedException();
-        }
+        // } catch (error) {
+        //     throw new UnauthorizedException();
+        // }
 
 
     }
 
-    private extractHeaderTokenFromHeader(request: Request): string | undefined {
-        const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    // private extractHeaderTokenFromHeader(request: Request): string | undefined {
+    //     const [type, token] = request.headers.authorization?.split(' ') ?? [];
 
-        return type === 'Bearer' ? token : undefined;
-    }
+    //     return type === 'Bearer' ? token : undefined;
+    // }
 
 
 
